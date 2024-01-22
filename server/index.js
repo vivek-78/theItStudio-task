@@ -4,14 +4,18 @@ import bodyParser from "body-parser";
 import User from "./model.js";
 import sendEmail from "./sendMail.js";
 import dotenv from "dotenv";
+import cors from "cors";
+
 dotenv.config();
 const app = express();
 app.use(bodyParser.json());
+app.use(cors())
 const PORT = process.env.PORT || 8080;
 mongoose.connect(process.env.DATABASE_URL);
 
 app.get("/", async (req, res) => {
-  console.log(process.env.EMAIL);
+  const userData = await User.find();
+   res.send(userData).status(200);
 });
 app.post("/add", async (req, res) => {
   console.log(req.body);
