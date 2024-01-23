@@ -14,7 +14,10 @@ app.use(cors());
 const PORT = process.env.PORT || 8080;
 mongoose.connect(process.env.DATABASE_URL);
 
-app.get("/", async (req, res) => {
+app.get("/",async(req,res)=>{
+    res.send("Fetch Data")
+})
+app.get("/userData", async (req, res) => {
   const userData = await User.find();
   res.send(userData).status(200);
 });
