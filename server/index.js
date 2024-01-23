@@ -6,6 +6,7 @@ import sendEmail from "./sendMail.js";
 import dotenv from "dotenv";
 import cors from "cors";
 import { v4 as uuidv4 } from "uuid";
+import { nanoid } from "nanoid";
 
 dotenv.config();
 const app = express();
@@ -21,7 +22,7 @@ app.get("/", async (req, res) => {
 app.post("/add", async (req, res) => {
   const { name, mobile, email, hobbies } = req.body.data;
   const newUserData = await User.create({
-    userId: uuidv4(),
+    userId: nanoid(10),
     name,
     mobile,
     email,
@@ -54,7 +55,6 @@ app.patch("/deleteMany",async (req,res) => {
     return res.status(200).send();
 })
 app.post("/sendMail", async (req, res) => {
-  console.log("/sendMail");
   const { userIds } = req.body;
   const users = await User.find({ userId: { $in: userIds } });
   const userData = users.map((user) => {
@@ -66,10 +66,7 @@ app.post("/sendMail", async (req, res) => {
       hobbies: user.hobbies,
     };
   });
-  console.log(userData);
   await sendEmail(userData);
-  return res.send("Mail sent");
+  return res.status(200).send();
 });
-app.listen(PORT, () => {
-  console.log("server running on port 8080");
-});
+app.listen(PORT);

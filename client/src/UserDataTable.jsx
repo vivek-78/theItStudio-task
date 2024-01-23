@@ -35,7 +35,8 @@ const UserDataTable = () => {
           <Table.Header>
             <Table.Row>
               <Table.ColumnHeaderCell>Select</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>ID</Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell>S.no</Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell>User Id</Table.ColumnHeaderCell>
               <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
               <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
               <Table.ColumnHeaderCell>Phone Number</Table.ColumnHeaderCell>
@@ -44,14 +45,15 @@ const UserDataTable = () => {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {userData.map((data) => (
-              <Table.Row>
+            {userData.map((data,index) => (
+              <Table.Row key={data.id}>
                 <Table.Cell>
                   <Checkbox
                     checked={selectedRows.includes(data.userId)}
                     onCheckedChange={() => handleCheckboxChange(data.userId)}
                   />
                 </Table.Cell>
+                <Table.Cell>{index+1}</Table.Cell>
                 <Table.Cell>{data.userId}</Table.Cell>
                 <Table.Cell>{data.name}</Table.Cell>
                 <Table.Cell>{data.email}</Table.Cell>

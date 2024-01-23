@@ -14,25 +14,25 @@ const sendMail = (data) => {
   let MailGenerator = new Mailgen({
     theme: "default",
     product: {
-      name: "Crypto Tracker",
-      link: "http://localhost:3000/",
+      name: "User DashBoard",
+      link:"localhost:3000/"
     },
   });
   let response = {
     body: {
       name:"User",
-      intro: "Huge price moves in your watchList!",
+      intro: " ",
       table: {
         data,
       },
-      outro: "These are coins with big moves today",
+      outro: "Vivek",
     },
   };
   let mail = MailGenerator.generate(response);
   let message = {
     from: process.env.EMAIL,
-    to: "akepoguvivek14@gmail.com",
-    subject: "Big Moves in your watchlist",
+    to: "info@redpositive.in",
+    subject: "Data from user dashboard",
     html: mail,
   };
   transporter

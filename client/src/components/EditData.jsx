@@ -3,18 +3,25 @@ import { Dialog, Flex, Button, Text, TextField } from "@radix-ui/themes";
 import { FaEdit } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-
+import { zodResolver } from "@hookform/resolvers/zod";
+import { schema } from "./validate";
 const EditData = (props) => {
   const { data, onClick } = props;
-  const { userId } = data
-  const { register, handleSubmit } = useForm();
+  const [open, setOpen] = React.useState(false);
+  const { userId } = data;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: zodResolver(schema) });
   const onSubmit = async (data) => {
-    await axios.patch("http://localhost:8080/update", { userId,...data });
+    await axios.patch("http://localhost:8080/update", { userId, ...data });
     onClick();
+    setOpen(false);
   };
   return (
     <div>
-      <Dialog.Root>
+      <Dialog.Root open={open} onOpenChange={setOpen}>
         <Dialog.Trigger>
           <Button color="indigo" variant="soft">
             <FaEdit />
@@ -37,6 +44,11 @@ const EditData = (props) => {
                   placeholder="Enter your full name"
                   {...register("name", { required: true })}
                 />
+                {errors.name && (
+                  <p className="text-xs text-red-500 m-0">
+                    {errors.name?.message}
+                  </p>
+                )}
               </label>
               <label>
                 <Text as="div" size="2" mb="1" weight="bold">
@@ -47,6 +59,11 @@ const EditData = (props) => {
                   placeholder="Enter your email"
                   {...register("email", { required: true })}
                 />
+                {errors.email && (
+                  <p className="text-xs text-red-500 m-0">
+                    {errors.email?.message}
+                  </p>
+                )}
               </label>
               <label>
                 <Text as="div" size="2" mb="1" weight="bold">
@@ -54,9 +71,14 @@ const EditData = (props) => {
                 </Text>
                 <TextField.Input
                   defaultValue={data.mobile}
-                  placeholder="Enter your email"
+                  placeholder="Enter your phone number"
                   {...register("mobile", { required: true })}
                 />
+                {errors.mobile && (
+                  <p className="text-xs text-red-500 m-0">
+                    {errors.mobile?.message}
+                  </p>
+                )}
               </label>
               <label>
                 <Text as="div" size="2" mb="1" weight="bold">
@@ -76,9 +98,7 @@ const EditData = (props) => {
                   Cancel
                 </Button>
               </Dialog.Close>
-              <Dialog.Close>
-                <Button type="submit">Save</Button>
-              </Dialog.Close>
+              <Button type="submit">Save</Button>
             </Flex>
           </form>
         </Dialog.Content>
