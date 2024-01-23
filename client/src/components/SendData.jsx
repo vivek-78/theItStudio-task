@@ -13,7 +13,7 @@ const SendData = (props) => {
     <div>
       <AlertDialog.Root>
         <AlertDialog.Trigger>
-          <Button className="bg-green-50 text-white px-4 py-2 rounded-md">
+          <Button disabled={userIds.length === 0 ? true : false } className="bg-green-50 text-white px-4 py-2 rounded-md">
             Send Data
             <IoMdSend />
           </Button>

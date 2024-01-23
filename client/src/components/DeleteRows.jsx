@@ -14,7 +14,7 @@ const DeleteRows = (props) => {
     <div>
       <AlertDialog.Root>
         <AlertDialog.Trigger>
-          <Button variant="solid" color="red">
+          <Button disabled={userIds.length === 0 ? true : false } variant="solid" color="red">
             <MdDelete />
             Delete Rows
           </Button>
