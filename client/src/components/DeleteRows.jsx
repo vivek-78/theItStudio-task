@@ -7,7 +7,7 @@ import { MdOutlineDelete } from "react-icons/md";
 const DeleteRows = (props) => {
   const { userIds, onClick } = props;
   const handleOnDeleteData = async () => {
-    await axios.patch("https://itstudiotask.onrender.com/deleteMany", { userIds });
+    await axios.patch("https://the-it-studio-task-ia2wouda3-vivek-78.vercel.app/deleteMany", { userIds });
     onClick();
   };
   return (

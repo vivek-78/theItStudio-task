@@ -15,7 +15,7 @@ const AddUserData = (props) => {
     formState: { errors },
   } = useForm({ resolver: zodResolver(schema) });
   const onSubmit = async (data) => {
-    await axios.post("https://itstudiotask.onrender.com/add", { data });
+    await axios.post("https://the-it-studio-task-ia2wouda3-vivek-78.vercel.app/add", { data });
     onClick();
     setOpen(false)
   };

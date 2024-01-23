@@ -15,7 +15,7 @@ const EditData = (props) => {
     formState: { errors },
   } = useForm({ resolver: zodResolver(schema) });
   const onSubmit = async (data) => {
-    await axios.patch("https://itstudiotask.onrender.com/update", { userId, ...data });
+    await axios.patch("https://the-it-studio-task-ia2wouda3-vivek-78.vercel.app/update", { userId, ...data });
     onClick();
     setOpen(false);
   };

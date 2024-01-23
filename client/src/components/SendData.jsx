@@ -6,7 +6,7 @@ import { IoMdSend } from "react-icons/io";
 const SendData = (props) => {
   const { userIds, onClick } = props;
   const handleOnSendData = async () => {
-    await axios.post("https://itstudiotask.onrender.com/sendMail", { userIds });
+    await axios.post("https://the-it-studio-task-ia2wouda3-vivek-78.vercel.app/sendMail", { userIds });
     onClick();
   };
   return (
