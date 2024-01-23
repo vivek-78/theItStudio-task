@@ -5,7 +5,6 @@ import User from "./model.js";
 import sendEmail from "./sendMail.js";
 import dotenv from "dotenv";
 import cors from "cors";
-import { v4 as uuidv4 } from "uuid";
 import { nanoid } from "nanoid";
 
 dotenv.config();
