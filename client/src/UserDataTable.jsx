@@ -3,7 +3,9 @@ import axios from "axios";
 import { Table, Button } from "@radix-ui/themes";
 import { MdOutlineDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
-
+import EditData from "./EditData";
+import DeleteData from "./DeleteData";
+import AddUserData from "./AddUser";
 const UserDataTable = () => {
   const [userData, setUserData] = useState([]);
   useEffect(() => {
@@ -15,8 +17,11 @@ const UserDataTable = () => {
   }, []);
   return (
     <div>
-      <p className="text-blue-400">User Data Managment</p>
-      <Table.Root variant="surface" className="mt-10">
+      <header className="flex items-center justify-between p-5 bg-gray-800 text-white">
+        <h1 className="text-2xl font-semibold">User Dashboard</h1>
+        <AddUserData />
+      </header>
+      <Table.Root variant="surface" className="m-14">
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeaderCell>ID</Table.ColumnHeaderCell>
@@ -30,17 +35,14 @@ const UserDataTable = () => {
         <Table.Body>
           {userData.map((data) => (
             <Table.Row>
+                <Table.Cell>{data.userId}</Table.Cell>
               <Table.Cell>{data.name}</Table.Cell>
               <Table.Cell>{data.email}</Table.Cell>
               <Table.Cell>{data.mobile}</Table.Cell>
               <Table.Cell>{data.hobbies}</Table.Cell>
-              <Table.Cell>
-                <Button color="indigo" variant="soft">
-                  <FaEdit />
-                </Button>{" "}
-                <Button color="crimson" variant="soft">
-                  <MdOutlineDelete />
-                </Button>
+              <Table.Cell className="flex flex-row gap-1 items-center">
+                <EditData data={data} />
+                <DeleteData userId={data.userId} />
               </Table.Cell>
             </Table.Row>
           ))}

@@ -5,6 +5,8 @@ import User from "./model.js";
 import sendEmail from "./sendMail.js";
 import dotenv from "dotenv";
 import cors from "cors";
+import { v4 as uuidv4 } from 'uuid';
+
 
 dotenv.config();
 const app = express();
@@ -18,9 +20,9 @@ app.get("/", async (req, res) => {
    res.send(userData).status(200);
 });
 app.post("/add", async (req, res) => {
-  console.log(req.body);
-  const { name, mobile, email, hobbies } = req.body;
+  const { name, mobile, email, hobbies } = req.body.data;
   const newUserData = await User.create({
+    userId:uuidv4(),
     name,
     mobile,
     email,
@@ -30,9 +32,8 @@ app.post("/add", async (req, res) => {
   return res.status(200).send();
 });
 app.patch("/update", async (req, res) => {
-  const { id, name, phoneNumber, email, hobbies } = req.body;
-  console.log(req.body);
-  await User.findByIdAndUpdate(id, {
+  const { userId, name, phoneNumber, email, hobbies } = req.body;
+  await User.findOneAndUpdate({userId}, {
     name,
     phoneNumber,
     email,
@@ -40,9 +41,9 @@ app.patch("/update", async (req, res) => {
   });
   res.status(200).send();
 });
-app.delete("/delete", async (req, res) => {
-  const { id } = req.body;
-  await findOneAndDelete({ _id: id });
+app.patch("/delete", async (req, res) => {
+  const { userId } = req.body;
+  await User.findOneAndDelete({ userId });
   return res.status(200).send();
 });
 app.post("/sendMail", async (req, res) => {
