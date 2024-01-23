@@ -9,7 +9,7 @@ const UserDataTable = () => {
   const [userData, setUserData] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
   const fetchUserData = async () => {
-    const fetchedData = await axios.get("http://localhost:8080/userData");
+    const fetchedData = await axios.get("https://itstudiotask.onrender.com/userData");
     setUserData(fetchedData.data);
   };
   useEffect(() => {

@@ -4,7 +4,7 @@ import axios from "axios";
 const DeleteData = (props) => {
   const { userId, onClick } = props;
   const onDelete = async () => {
-    await axios.patch("http://localhost:8080/deleteByUserId", { userId });
+    await axios.patch("https://itstudiotask.onrender.com/deleteByUserId", { userId });
     onClick();
   };
   return (

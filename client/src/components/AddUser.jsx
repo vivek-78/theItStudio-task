@@ -15,7 +15,7 @@ const AddUserData = (props) => {
     formState: { errors },
   } = useForm({ resolver: zodResolver(schema) });
   const onSubmit = async (data) => {
-    await axios.post("http://localhost:8080/add", { data });
+    await axios.post("https://itstudiotask.onrender.com/add", { data });
     onClick();
     setOpen(false)
   };

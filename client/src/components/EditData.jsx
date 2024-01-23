@@ -15,7 +15,7 @@ const EditData = (props) => {
     formState: { errors },
   } = useForm({ resolver: zodResolver(schema) });
   const onSubmit = async (data) => {
-    await axios.patch("http://localhost:8080/update", { userId, ...data });
+    await axios.patch("https://itstudiotask.onrender.com/update", { userId, ...data });
     onClick();
     setOpen(false);
   };
