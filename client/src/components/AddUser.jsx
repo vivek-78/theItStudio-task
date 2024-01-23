@@ -1,23 +1,21 @@
 import React from "react";
 import { Dialog, Flex, Button, Text, TextField } from "@radix-ui/themes";
-import { FaEdit } from "react-icons/fa";
+import { MdAdd } from "react-icons/md";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 const AddUserData = (props) => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
+  const { onClick } = props;
+  const { register, handleSubmit } = useForm();
   const onSubmit = async (data) => {
     await axios.post("http://localhost:8080/add", { data });
+    onClick();
   };
   return (
     <div>
       <Dialog.Root>
         <Dialog.Trigger>
           <Button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md">
+            <MdAdd />
             Add New User
           </Button>
         </Dialog.Trigger>

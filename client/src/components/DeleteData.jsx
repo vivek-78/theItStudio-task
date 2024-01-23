@@ -2,9 +2,10 @@ import { AlertDialog, Button, Flex } from "@radix-ui/themes";
 import { MdOutlineDelete } from "react-icons/md";
 import axios from "axios";
 const DeleteData = (props) => {
-  const { userId } = props;
+  const { userId, onClick } = props;
   const onDelete = async () => {
-    await axios.patch("http://localhost:8080/delete", { userId });
+    await axios.patch("http://localhost:8080/deleteByUserId", { userId });
+    onClick();
   };
   return (
     <div>
@@ -15,7 +16,7 @@ const DeleteData = (props) => {
           </Button>
         </AlertDialog.Trigger>
         <AlertDialog.Content style={{ maxWidth: 450 }}>
-          <AlertDialog.Title>Revoke access</AlertDialog.Title>
+          <AlertDialog.Title>Delete Data</AlertDialog.Title>
           <AlertDialog.Description size="2">
             Are you sure you want to Delete?
           </AlertDialog.Description>

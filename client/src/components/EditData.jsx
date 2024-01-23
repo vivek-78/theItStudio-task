@@ -5,11 +5,12 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 
 const EditData = (props) => {
-  const { data } = props;
+  const { data, onClick } = props;
   const { userId } = data
   const { register, handleSubmit } = useForm();
   const onSubmit = async (data) => {
     await axios.patch("http://localhost:8080/update", { userId,...data });
+    onClick();
   };
   return (
     <div>
