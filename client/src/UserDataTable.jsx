@@ -9,7 +9,7 @@ const UserDataTable = () => {
   const [userData, setUserData] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
   const fetchUserData = async () => {
-    const fetchedData = await axios.get("https://the-it-studio-task-ia2wouda3-vivek-78.vercel.app/userData");
+    const fetchedData = await axios.get("https://the-it-studio-task-2e7m7u335-vivek-78.vercel.app/userData");
     setUserData(fetchedData.data);
   };
   useEffect(() => {

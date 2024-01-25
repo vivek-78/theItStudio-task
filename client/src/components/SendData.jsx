@@ -5,8 +5,11 @@ import { IoMdSend } from "react-icons/io";
 
 const SendData = (props) => {
   const { userIds, onClick } = props;
+  const [disableSendButton,setDisableSendButton] = React.useState(false);
   const handleOnSendData = async () => {
+    setDisableSendButton(true)
     await axios.post("https://the-it-studio-task-ia2wouda3-vivek-78.vercel.app/sendMail", { userIds });
+    setDisableSendButton(false)
     onClick();
   };
   return (
@@ -31,7 +34,7 @@ const SendData = (props) => {
               </Button>
             </AlertDialog.Cancel>
             <AlertDialog.Action>
-              <Button variant="solid" onClick={handleOnSendData}>
+              <Button variant="solid" onClick={handleOnSendData} disabled={disableSendButton}>
                 Send Data
               </Button>
             </AlertDialog.Action>

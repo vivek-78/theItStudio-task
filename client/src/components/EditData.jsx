@@ -8,6 +8,7 @@ import { schema } from "./validate";
 const EditData = (props) => {
   const { data, onClick } = props;
   const [open, setOpen] = React.useState(false);
+  const [disableAddButton,setDisableAddButton] = React.useState(false)
   const { userId } = data;
   const {
     register,
@@ -15,8 +16,10 @@ const EditData = (props) => {
     formState: { errors },
   } = useForm({ resolver: zodResolver(schema) });
   const onSubmit = async (data) => {
+    setDisableAddButton(true)
     await axios.patch("https://the-it-studio-task-ia2wouda3-vivek-78.vercel.app/update", { userId, ...data });
     onClick();
+    setDisableAddButton(false)
     setOpen(false);
   };
   return (
@@ -98,7 +101,7 @@ const EditData = (props) => {
                   Cancel
                 </Button>
               </Dialog.Close>
-              <Button type="submit">Save</Button>
+              <Button type="submit" disabled={disableAddButton}>Save</Button>
             </Flex>
           </form>
         </Dialog.Content>

@@ -6,8 +6,11 @@ import { MdOutlineDelete } from "react-icons/md";
 
 const DeleteRows = (props) => {
   const { userIds, onClick } = props;
+  const [disableDeleteButton,setDisableDeleteButton] = React.useState(false);
   const handleOnDeleteData = async () => {
+    setDisableDeleteButton(true)
     await axios.patch("https://the-it-studio-task-ia2wouda3-vivek-78.vercel.app/deleteMany", { userIds });
+    setDisableDeleteButton(false);
     onClick();
   };
   return (
@@ -32,7 +35,7 @@ const DeleteRows = (props) => {
               </Button>
             </AlertDialog.Cancel>
             <AlertDialog.Action>
-              <Button variant="solid" color="red" onClick={handleOnDeleteData}>
+              <Button variant="solid" disabled={disableDeleteButton} color="red" onClick={handleOnDeleteData}>
                 Delete
               </Button>
             </AlertDialog.Action>

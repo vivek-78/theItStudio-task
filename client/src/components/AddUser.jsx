@@ -9,14 +9,17 @@ import { schema } from "./validate";
 const AddUserData = (props) => {
   const { onClick } = props;
   const [open, setOpen] = React.useState(false);
+  const [disableAddButton,setDisableAddButton] = React.useState(false)
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: zodResolver(schema) });
   const onSubmit = async (data) => {
+    setDisableAddButton(true)
     await axios.post("https://the-it-studio-task-ia2wouda3-vivek-78.vercel.app/add", { data });
     onClick();
+    setDisableAddButton(false)
     setOpen(false)
   };
   return (
@@ -99,7 +102,7 @@ const AddUserData = (props) => {
                   Cancel
                 </Button>
               </Dialog.Close>
-              <Button type="submit">Add User</Button>
+              <Button disabled={disableAddButton} type="submit">Add User</Button>
             </Flex>
           </form>
         </Dialog.Content>
