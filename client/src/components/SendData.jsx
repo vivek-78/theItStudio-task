@@ -2,6 +2,7 @@ import { AlertDialog, Button, Flex } from "@radix-ui/themes";
 import axios from "axios";
 import React from "react";
 import { IoMdSend } from "react-icons/io";
+import { AiOutlineLoading3Quarters as LoadingIcon } from "react-icons/ai";
 
 const SendData = (props) => {
   const { userIds, onClick } = props;
@@ -35,6 +36,9 @@ const SendData = (props) => {
             </AlertDialog.Cancel>
             <AlertDialog.Action>
               <Button variant="solid" onClick={handleOnSendData} disabled={disableSendButton}>
+              {disableSendButton && (
+                  <LoadingIcon className="animate-spin h-5 w-5" />
+                )}
                 Send Data
               </Button>
             </AlertDialog.Action>

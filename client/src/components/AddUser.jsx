@@ -1,6 +1,7 @@
 import React from "react";
 import { Dialog, Flex, Button, Text, TextField } from "@radix-ui/themes";
 import { MdAdd } from "react-icons/md";
+import { AiOutlineLoading3Quarters as LoadingIcon } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,18 +10,21 @@ import { schema } from "./validate";
 const AddUserData = (props) => {
   const { onClick } = props;
   const [open, setOpen] = React.useState(false);
-  const [disableAddButton,setDisableAddButton] = React.useState(false)
+  const [disableAddButton, setDisableAddButton] = React.useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: zodResolver(schema) });
   const onSubmit = async (data) => {
-    setDisableAddButton(true)
-    await axios.post("https://the-it-studio-task-ia2wouda3-vivek-78.vercel.app/add", { data });
+    setDisableAddButton(true);
+    await axios.post(
+      "https://the-it-studio-task-ia2wouda3-vivek-78.vercel.app/add",
+      { data }
+    );
     onClick();
-    setDisableAddButton(false)
-    setOpen(false)
+    setDisableAddButton(false);
+    setOpen(false);
   };
   return (
     <div>
@@ -45,12 +49,12 @@ const AddUserData = (props) => {
                 <TextField.Input
                   placeholder="Enter your full name"
                   {...register("name", { required: true })}
-                  />
-                  {errors.name && (
-                    <p className="text-xs text-red-500 m-0">
-                      {errors.name?.message}
-                    </p>
-                  )}
+                />
+                {errors.name && (
+                  <p className="text-xs text-red-500 m-0">
+                    {errors.name?.message}
+                  </p>
+                )}
               </label>
               <label>
                 <Text as="div" size="2" weight="bold">
@@ -73,12 +77,12 @@ const AddUserData = (props) => {
                 <TextField.Input
                   placeholder="Enter your email"
                   {...register("mobile", { required: true })}
-                  />
-                  {errors.mobile && (
-                    <p className="text-xs text-red-500 m-0">
-                      {errors.mobile?.message}
-                    </p>
-                  )}
+                />
+                {errors.mobile && (
+                  <p className="text-xs text-red-500 m-0">
+                    {errors.mobile?.message}
+                  </p>
+                )}
               </label>
               <label>
                 <Text as="div" size="2" weight="bold">
@@ -87,12 +91,12 @@ const AddUserData = (props) => {
                 <TextField.Input
                   placeholder="Enter your hobbies saperated by comma"
                   {...register("hobbies", { required: true })}
-                  />
-                  {errors.hobbies && (
-                    <p className="text-xs text-red-500 m-0">
-                      {errors.mobile?.hobbies}
-                    </p>
-                  )}
+                />
+                {errors.hobbies && (
+                  <p className="text-xs text-red-500 m-0">
+                    {errors.mobile?.hobbies}
+                  </p>
+                )}
               </label>
             </Flex>
 
@@ -102,7 +106,12 @@ const AddUserData = (props) => {
                   Cancel
                 </Button>
               </Dialog.Close>
-              <Button disabled={disableAddButton} type="submit">Add User</Button>
+              <Button disabled={disableAddButton} type="submit">
+                {disableAddButton && (
+                  <LoadingIcon className="animate-spin h-5 w-5" />
+                )}
+                Add User
+              </Button>
             </Flex>
           </form>
         </Dialog.Content>

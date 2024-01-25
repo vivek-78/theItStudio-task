@@ -1,10 +1,18 @@
 import { AlertDialog, Button, Flex } from "@radix-ui/themes";
+import React from "react";
 import { MdOutlineDelete } from "react-icons/md";
+import { AiOutlineLoading3Quarters as LoadingIcon } from "react-icons/ai";
 import axios from "axios";
 const DeleteData = (props) => {
   const { userId, onClick } = props;
+  const [disableDeleteButton, setDisableDeleteButton] = React.useState(false);
   const onDelete = async () => {
-    await axios.patch("https://the-it-studio-task-ia2wouda3-vivek-78.vercel.app/deleteByUserId", { userId });
+    setDisableDeleteButton(true);
+    await axios.patch(
+      "https://the-it-studio-task-ia2wouda3-vivek-78.vercel.app/deleteByUserId",
+      { userId }
+    );
+    setDisableDeleteButton(false);
     onClick();
   };
   return (
@@ -28,7 +36,13 @@ const DeleteData = (props) => {
               </Button>
             </AlertDialog.Cancel>
             <AlertDialog.Action>
-              <Button variant="solid" color="red" onClick={onDelete}>
+              <Button
+                disabled={disableDeleteButton}
+                variant="solid"
+                color="red"
+                onClick={onDelete}
+              >
+                {disableDeleteButton && <LoadingIcon className="animate-spin h-5 w-5"/>}
                 Delete
               </Button>
             </AlertDialog.Action>

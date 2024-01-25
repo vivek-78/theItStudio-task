@@ -3,13 +3,17 @@ import axios from "axios";
 import React from "react";
 import { MdDelete } from "react-icons/md";
 import { MdOutlineDelete } from "react-icons/md";
+import { AiOutlineLoading3Quarters as LoadingIcon } from "react-icons/ai";
 
 const DeleteRows = (props) => {
   const { userIds, onClick } = props;
-  const [disableDeleteButton,setDisableDeleteButton] = React.useState(false);
+  const [disableDeleteButton, setDisableDeleteButton] = React.useState(false);
   const handleOnDeleteData = async () => {
-    setDisableDeleteButton(true)
-    await axios.patch("https://the-it-studio-task-ia2wouda3-vivek-78.vercel.app/deleteMany", { userIds });
+    setDisableDeleteButton(true);
+    await axios.patch(
+      "https://the-it-studio-task-ia2wouda3-vivek-78.vercel.app/deleteMany",
+      { userIds }
+    );
     setDisableDeleteButton(false);
     onClick();
   };
@@ -17,7 +21,11 @@ const DeleteRows = (props) => {
     <div>
       <AlertDialog.Root>
         <AlertDialog.Trigger>
-          <Button disabled={userIds.length === 0 ? true : false } variant="solid" color="red">
+          <Button
+            disabled={userIds.length === 0 ? true : false}
+            variant="solid"
+            color="red"
+          >
             <MdDelete />
             Delete Rows
           </Button>
@@ -35,7 +43,15 @@ const DeleteRows = (props) => {
               </Button>
             </AlertDialog.Cancel>
             <AlertDialog.Action>
-              <Button variant="solid" disabled={disableDeleteButton} color="red" onClick={handleOnDeleteData}>
+              <Button
+                variant="solid"
+                disabled={disableDeleteButton}
+                color="red"
+                onClick={handleOnDeleteData}
+              >
+                {disableDeleteButton && (
+                  <LoadingIcon className="animate-spin h-5 w-5" />
+                )}
                 Delete
               </Button>
             </AlertDialog.Action>
